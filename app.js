@@ -10,10 +10,11 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const User = require('./models/user')
 
+const ExpressError = require('./utils/ExpressError');
+
 const campgroundRoutes = require('./routes/campgrounds');
 const reviewRoutes = require('./routes/reviews');
 const userRoutes = require('./routes/users');
-
 
 mongoose.connect('mongodb://localhost:27017/yelpcamp',{
     useNewUrlParser: true,
@@ -60,7 +61,7 @@ passport.deserializeUser(User.deserializeUser());
 
 
 app.use((req, res, next) => {
-    // console.log(req.session);
+    // console.log(req.user);
     res.locals.currentUser = req.user;
     res.locals.success = req.flash('success');
     res.locals.error = req.flash('error');

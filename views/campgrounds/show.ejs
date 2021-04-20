@@ -11,7 +11,9 @@
             </div>
             <ul class="list-group list-group-flush">
                 <li class="list-group-item"><%= campground.location %></li>
+                <% if (campground.author ) { %> 
                 <li class="list-group-item">Submitted by <%= campground.author.username %></li>
+                <% } %> 
                 <li class="list-group-item">$<%= campground.price %> /night</li>
             </ul>
             <% if ( currentUser && campground.author.equals(currentUser._id)) { %> 
@@ -31,6 +33,7 @@
         </div>   
     </div>     
     <div class="col-6">
+        <% if ( currentUser) { %> 
         <h2>Leave a Review</h2>
         <form action="/campgrounds/<%= campground._id %>/reviews" method="POST" novalidate class="validated-form">
             <div class="mb-3">
@@ -43,14 +46,16 @@
             </div>
             <button class="btn btn-success">Submit</button>
         </form>
+        <% } %> 
         <% for( let review of campground.reviews) { %>
             <div class="card mt-3">
                 <div class="card-body">
                     <h5 class="card-title">Rating: <%= review.rating %> </h5>
-                    <p class="card-text">Review: <%= review.body %> </p>
+                    <p class="card-subtitle">Author: <%= review.author.username %>  </p>                   <p class="card-text">Review: <%= review.body %> </p>
                     <form method ="POST" action="/campgrounds/<%= campground._id %>/reviews/<%= review._id %>?_method=DELETE">
                         <button class="btn btn-sm btn-danger">Delete</button>
                     </form>
+                    
                 </div>    
             </div>
         <% } %> 
