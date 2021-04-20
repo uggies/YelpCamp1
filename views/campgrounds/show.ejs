@@ -11,9 +11,10 @@
             </div>
             <ul class="list-group list-group-flush">
                 <li class="list-group-item"><%= campground.location %></li>
-                <li class="list-group-item"><%= campground.image %></li>
+                <li class="list-group-item">Submitted by <%= campground.author.username %></li>
                 <li class="list-group-item">$<%= campground.price %> /night</li>
             </ul>
+            <% if ( currentUser && campground.author.equals(currentUser._id)) { %> 
             <div class="card-body">
                 <a href="/campgrounds/<%= campground._id %>/edit" class="btn btn-info">Edit</a>
 
@@ -26,6 +27,7 @@
                     <p><a href="/campgrounds">All Campgrounds</a></p>
                 </div>
             </div>
+            <% } %> 
         </div>   
     </div>     
     <div class="col-6">
@@ -42,7 +44,7 @@
             <button class="btn btn-success">Submit</button>
         </form>
         <% for( let review of campground.reviews) { %>
-            <div class="card mb-3">
+            <div class="card mt-3">
                 <div class="card-body">
                     <h5 class="card-title">Rating: <%= review.rating %> </h5>
                     <p class="card-text">Review: <%= review.body %> </p>
