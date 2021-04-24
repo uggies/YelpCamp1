@@ -25,17 +25,28 @@ const seedDb = async () => {
     //     title: 'purple field'
     // })
     // await c.save();
-    for(let i=0; i<50; i++) {
+    for(let i=0; i<100; i++) {
         const random1000 = Math.floor(Math.random()*1000);
         const price = Math.floor(Math.random()*20) + 10;
         const camp = new Campground({
             location: `${cities[random1000].city}, ${cities[random1000].state}`,
             title: `${sample(descriptors)} ${sample(places)}`,
             author: '607de17c7f8c1545b0b682b5',
-            image: 'https://source.unsplash.com/collection/483251',
             price,
+            geometry: {
+                type: 'Point',
+                coordinates: [
+                    cities[random1000].longitude, 
+                    cities[random1000].latitude
+                ]
+            },
             description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis provident debitis temporibus fuga saepe error sequi, repellat facilis deserunt eveniet doloremque tenetur quisquam aut possimus excepturi necessitatibus sint neque! Nisi.',
-
+            images:
+            [ { 
+                url:
+                 'https://res.cloudinary.com/dyyuj2cq2/image/upload/v1619209911/YelpCamp/wjqhlqrgf3bcoskk5sdg.jpg',
+                filename: 'YelpCamp/wjqhlqrgf3bcoskk5sdg' },
+            ]
         })
         await camp.save();
     }   
